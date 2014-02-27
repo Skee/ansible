@@ -185,7 +185,7 @@ def update(module, state, name, auto, hotplug, iface_type, addr_family,
 
         # Open a temp file to write to
         tmpfile = tempfile.mkstemp()
-        fd = open(tmpfile, 'w')
+        fd = open(tmpfile[1], 'w')
         fd.write('# This file is controlled by ansible\n')
 
         # Build basic structure
@@ -269,7 +269,7 @@ def update(module, state, name, auto, hotplug, iface_type, addr_family,
 
         # Close temp file and move it
         fd.close()
-        module.atomic_move(tmpfile, '/etc/network/interfaces')
+        module.atomic_move(tmpfile[1], '/etc/network/interfaces')
 
         module.exit_json(
             changed=changed,
